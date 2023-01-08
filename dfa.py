@@ -23,3 +23,10 @@ class DFA:
                 self.traverse(next_state, length_counter + 1)
             else:
                 return length_counter
+    
+    def compliment(self):
+        compliment_accepting_states = []
+        for state in self.state_set:
+            if state not in self.accepting_states:
+                compliment_accepting_states.append(state)
+        return DFA(self.state_set, self.alphabet, self.start_state, compliment_accepting_states, self.transition_function)
