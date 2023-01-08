@@ -11,3 +11,15 @@ class DFA:
         for char in input_string:
             current_state = self.transition_function[current_state][char]
         return current_state in self.accepting_states
+
+    def shortest_string(self):
+        shortest_string_length = self.traverse(self.start_state, 0)
+        return shortest_string_length
+
+    def traverse(self, current_state, length_counter):
+        for char in self.alphabet:
+            next_state = self.transition_function[current_state][char]
+            if next_state not in self.accepting_states:
+                self.traverse(next_state, length_counter + 1)
+            else:
+                return length_counter
