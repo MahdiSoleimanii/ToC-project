@@ -1,0 +1,40 @@
+[
+    {
+        "type": "dfa",
+        "name": "ending in b and not containing aa",
+        "states": ["q0", "q1", "q2", "q3"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q3"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q3"},
+            "q1": {"a": "q2", "b": "q3"},
+            "q2": {"a": "q2", "b": "q2"},
+            "q3": {"a": "q1", "b": "q3"}
+        }
+    },
+    {
+        "type": "dfa",
+        "name": "ending in aa",
+        "states": ["q0", "q1", "q2"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q2"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q0"},
+            "q1": {"a": "q2", "b": "q0"},
+            "q2": {"a": "q2", "b": "q0"}
+        }
+    },
+    {
+        "type": "dfa",
+        "name": "sigma star",
+        "states": ["q0"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q0"],
+        "transition_function": {
+            "q0": {"a": "q0", "b": "q0"}
+        }
+    }
+]
