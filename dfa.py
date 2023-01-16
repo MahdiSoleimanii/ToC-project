@@ -25,6 +25,12 @@ class DFA:
                 result = True
                 break
         return result
+
+    def number_of_elements(self):
+        if not self.is_infinite():
+            return len(self.base_strings)
+        else:
+            return 'Infinite Language'
     
     def string_generator(self, length):
         strings = []
