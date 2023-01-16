@@ -31,6 +31,24 @@ class DFA:
             return len(self.base_strings)
         else:
             return 'Infinite Language'
+        
+    def shortest_string(self):
+        if not self.is_empty():
+            if self.base_strings[0] == '':
+                return 'The Empty String'
+            else:
+                return self.base_strings[0]
+        else:
+            return 'Empty Language'
+    
+    def longest_string(self):
+        if not self.is_infinite() and not self.is_empty():
+            if self.base_strings[len(self.base_strings) - 1] == '':
+                return 'The Empty String'
+            else:
+                return self.base_strings[len(self.base_strings) - 1]
+        else:
+            return 'Empty or Infinite Language'
     
     def string_generator(self, length):
         strings = []
