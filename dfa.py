@@ -5,6 +5,9 @@ class DFA:
         self.start_state = start_state
         self.accepting_states = accepting_states
         self.transition_function = transition_function
+        self.base_strings = []
+        for string_length in range(len(self.state_set)):
+            self.base_strings += [string for string in self.string_generator(string_length) if self.is_accepted(string)]
     
     def is_accepted(self, input_string):
         current_state = self.start_state
