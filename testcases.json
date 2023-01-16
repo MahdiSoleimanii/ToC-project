@@ -81,5 +81,19 @@
             "q3": {"a": "q4", "b": "q4"},
             "q4": {"a": "q4", "b": "q4"}
         }
+    },
+    {
+        "type": "dfa",
+        "name": "manually created machine where shortest string is of length 3 (one less than number of states)",
+        "states": ["q0", "q1", "q2", "q3"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q3"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q1"},
+            "q1": {"a": "q2", "b": "q1"},
+            "q2": {"a": "q3", "b": "q3"},
+            "q3": {"a": "q0", "b": "q1"}
+        }
     }
 ]
