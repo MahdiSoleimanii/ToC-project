@@ -12,18 +12,38 @@ class DFA:
             current_state = self.transition_function[current_state][char]
         return current_state in self.accepting_states
 
-    def shortest_string(self):
-        shortest_string_length = self.traverse(self.start_state, 0)
-        return shortest_string_length
-
-    def traverse(self, current_state, length_counter):
-        for char in self.alphabet:
-            next_state = self.transition_function[current_state][char]
-            if next_state not in self.accepting_states:
-                self.traverse(next_state, length_counter + 1)
-            else:
-                return length_counter
+    def is_empty(self):
+        result = True
+        string_length = 0
+        while string_length < len(self.state_set) and result:
+            for string in self.string_generator(string_length):
+                if self.is_accepted(string):
+                    result = False
+                    break
+            string_length += 1
+        return result
     
+    def is_infinite(self):
+        result = False
+        string_length = len(self.state_set)
+        while string_length < len(self.state_set) * 2 and not result:
+            for string in self.string_generator(string_length):
+                if self.is_accepted(string):
+                    result = True
+                    break
+            string_length += 1
+        return result
+    
+    def string_generator(self, length):
+        strings = []
+        if length == 0:
+            strings.append('')
+        else:
+            for string in self.string_generator(length - 1):
+                for char in self.alphabet:
+                    strings.append(string + char)
+        return strings
+                         
     def compliment(self):
         compliment_accepting_states = []
         for state in self.state_set:
