@@ -6,7 +6,7 @@ class DFA:
         self.accepting_states = accepting_states
         self.transition_function = transition_function
         self.base_strings = []
-        for string_length in range(len(self.state_set)):
+        for string_length in range(len(self.state_set) * 2):
             self.base_strings += [string for string in self.string_generator(string_length) if self.is_accepted(string)]
     
     def is_accepted(self, input_string):
@@ -16,25 +16,14 @@ class DFA:
         return current_state in self.accepting_states
 
     def is_empty(self):
-        result = True
-        string_length = 0
-        while string_length < len(self.state_set) and result:
-            for string in self.string_generator(string_length):
-                if self.is_accepted(string):
-                    result = False
-                    break
-            string_length += 1
-        return result
+        return self.base_strings == []
     
     def is_infinite(self):
         result = False
-        string_length = len(self.state_set)
-        while string_length < len(self.state_set) * 2 and not result:
-            for string in self.string_generator(string_length):
-                if self.is_accepted(string):
-                    result = True
-                    break
-            string_length += 1
+        for string in self.base_strings:
+            if len(string) >= len(self.state_set):
+                result = True
+                break
         return result
     
     def string_generator(self, length):
