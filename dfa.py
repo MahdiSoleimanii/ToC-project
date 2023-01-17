@@ -19,12 +19,10 @@ class DFA:
         return self.base_strings == []
     
     def is_infinite(self):
-        result = False
-        for string in self.base_strings:
-            if len(string) >= len(self.state_set):
-                result = True
-                break
-        return result
+        if self.base_strings == []:
+            return False
+        else:
+            return len(self.base_strings[len(self.base_strings) - 1]) >= len(self.state_set)
 
     def number_of_elements(self):
         if not self.is_infinite():
