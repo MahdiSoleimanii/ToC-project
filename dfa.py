@@ -116,15 +116,19 @@ class DFA:
 
         union_dfa = DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
 
-        return union_dfa
+        for state in union_state_set:
+            if not union_dfa.is_reachable(state):
+                union_dfa.state_set.remove(state)
+                union_dfa.accepting_states.remove(state)
+                union_dfa.transition_function.pop(state)
+        
+        return DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
     
     def is_reachable(self, dest_state):
-        current_state = self.start_state
-
-        visited_states = []
-
-        while current_state not in visited_states:
+        reachable_states = [self.start_state]
+        for state in reachable_states:
             for char in self.alphabet:
-                current_state = self.transition_function[current_state][char]
-                visited_states.append(current_state)
+                if self.transition_function[state][char] not in reachable_states:
+                    reachable_states.append(self.transition_function[state][char])
+        return dest_state in reachable_states
                         
