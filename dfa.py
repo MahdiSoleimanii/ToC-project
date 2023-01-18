@@ -114,13 +114,11 @@ class DFA:
             for char in union_alphabet:
                 union_transition_function[state][char] = (self.transition_function[state[0]][char], second_dfa.transition_function[state[1]][char])
 
-        union_dfa = DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
-
         for state in union_state_set:
-            if not union_dfa.is_reachable(state):
-                union_dfa.state_set.remove(state)
-                union_dfa.accepting_states.remove(state)
-                union_dfa.transition_function.pop(state)
+            if not DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function).is_reachable(state):
+                union_state_set.remove(state)
+                union_accepting_states.remove(state)
+                union_transition_function.pop(state)
         
         return DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
     
