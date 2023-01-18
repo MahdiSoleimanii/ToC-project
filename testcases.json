@@ -95,5 +95,61 @@
             "q2": {"a": "q3", "b": "q3"},
             "q3": {"a": "q0", "b": "q1"}
         }
+    },
+    {
+        "type": "dfa",
+        "name": "aa is not a substring of x",
+        "states": ["q0", "q1", "q2"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q0", "q1"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q0"},
+            "q1": {"a": "q2", "b": "q0"},
+            "q2": {"a": "q2", "b": "q2"}
+        }
+    },
+    {
+        "type": "dfa",
+        "name": "x ends with ab",
+        "states": ["q0", "q1", "q2"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q2"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q0"},
+            "q1": {"a": "q1", "b": "q2"},
+            "q2": {"a": "q1", "b": "q0"}
+        }
+    },
+    {
+        "type": "dfa",
+        "name": "union of two previous machines with removing unreachable states",
+        "states": ["q0", "q1", "q2", "q3", "q4", "q5"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q0", "q1", "q2", "q5"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q0"},
+            "q1": {"a": "q3", "b": "q2"},
+            "q2": {"a": "q1", "b": "q0"},
+            "q3": {"a": "q3", "b": "q5"},
+            "q4": {"a": "q3", "b": "q4"},
+            "q5": {"a": "q3", "b": "q4"}
+        }
+    },
+    {
+        "type": "dfa",
+        "name": "intersection of two previous machines with removing unreachable states",
+        "states": ["q0", "q1", "q2", "q3"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q2"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q0"},
+            "q1": {"a": "q3", "b": "q2"},
+            "q2": {"a": "q1", "b": "q0"},
+            "q3": {"a": "q3", "b": "q3"}
+        }
     }
 ]
