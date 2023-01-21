@@ -121,6 +121,36 @@ class DFA:
                 union_transition_function.pop(state)
         
         return DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
+
+    def intersection(self, second_dfa):
+        intersection_state_set = []
+        for state in self.state_set:
+            for other_state in second_dfa.state_set:
+                intersection_state_set.append((state, other_state))
+        
+        intersection_alphabet = self.alphabet
+
+        intersection_start_state = (self.start_state, second_dfa.start_state)
+
+        intersection_accepting_states = []
+        for accept_state in self.accepting_states:
+            for acc_state in second_dfa.accepting_states:
+                intersection_accepting_states.append((accept_state, acc_state))
+
+        intersection_transition_function = {}
+        for state in intersection_state_set:
+            intersection_transition_function[state] = {}
+            for char in intersection_alphabet:
+                intersection_transition_function[state][char] = (self.transition_function[state[0]][char], second_dfa.transition_function[state[1]][char])
+
+        for state in intersection_state_set:
+            if not DFA(intersection_state_set, intersection_alphabet, intersection_start_state, intersection_accepting_states, intersection_transition_function).is_reachable(state):
+                intersection_state_set.remove(state)
+                if state in intersection_accepting_states:
+                    intersection_accepting_states.remove(state)
+                intersection_transition_function.pop(state)
+        
+        return DFA(intersection_state_set, intersection_alphabet, intersection_start_state, intersection_accepting_states, intersection_transition_function)
     
     def is_reachable(self, dest_state):
         reachable_states = [self.start_state]
