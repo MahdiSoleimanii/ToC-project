@@ -117,7 +117,8 @@ class DFA:
         for state in union_state_set:
             if not DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function).is_reachable(state):
                 union_state_set.remove(state)
-                union_accepting_states.remove(state)
+                if state in union_accepting_states:
+                    union_accepting_states.remove(state)
                 union_transition_function.pop(state)
         
         return DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
