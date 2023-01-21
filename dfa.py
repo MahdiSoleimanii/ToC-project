@@ -71,7 +71,7 @@ class DFA:
         else:
             return elements[-1]
     
-    def string_generator(self, length):
+    def ــstring_generator(self, length):
         if length == 0:
             return ['']
         else:
@@ -89,10 +89,7 @@ class DFA:
         return DFA(self.state_set, self.alphabet, self.start_state, compliment_accepting_states, self.transition_function)
     
     def union(self, second_dfa):
-        union_state_set = []
-        for state in self.state_set:
-            for other_state in second_dfa.state_set:
-                union_state_set.append((state, other_state))
+        union_state_set = self.__q_into_q(second_dfa)
 
         union_alphabet = self.alphabet
 
@@ -124,10 +121,7 @@ class DFA:
         return DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
 
     def intersection(self, second_dfa):
-        intersection_state_set = []
-        for state in self.state_set:
-            for other_state in second_dfa.state_set:
-                intersection_state_set.append((state, other_state))
+        intersection_state_set = self.__q_into_q(second_dfa)
         
         intersection_alphabet = self.alphabet
 
@@ -153,6 +147,42 @@ class DFA:
         
         return DFA(intersection_state_set, intersection_alphabet, intersection_start_state, intersection_accepting_states, intersection_transition_function)
     
+    def difference(self, second_dfa):
+        difference_state_set = self.__q_into_q(second_dfa)
+
+        difference_alphabet = self.alphabet
+
+        difference_start_state = (self.start_state, second_dfa.start_state)
+
+        difference_accepting_states = []
+        for accept_state in self.accepting_states:
+            for state in second_dfa.state_set:
+                if state not in second_dfa.accepting_states:
+                    difference_accepting_states.append((accept_state, state))
+
+        difference_transition_function = {}
+        for state in difference_state_set:
+            difference_transition_function[state] = {}
+            for char in difference_alphabet:
+                difference_transition_function[state][char] = (self.transition_function[state[0]][char], second_dfa.transition_function[state[1]][char])
+
+        for state in difference_state_set:
+            if not DFA(difference_state_set, difference_alphabet, difference_start_state, difference_accepting_states, difference_transition_function).is_reachable(state):
+                difference_state_set.remove(state)
+                if state in difference_accepting_states:
+                    difference_accepting_states.remove(state)
+                difference_transition_function.pop(state)
+        
+        return DFA(difference_state_set, difference_alphabet, difference_start_state, difference_accepting_states, difference_transition_function)
+    
+    def __q_into_q(self, second_dfa):
+        q_into_q_state_set = []
+        for state in self.state_set:
+            for other_state in second_dfa.state_set:
+                q_into_q_state_set.append((state, other_state))
+        
+        return q_into_q_state_set
+        
     def is_reachable(self, dest_state):
         reachable_states = [self.start_state]
         for state in reachable_states:
