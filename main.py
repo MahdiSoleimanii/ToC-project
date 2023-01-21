@@ -15,4 +15,7 @@ testfa8 = DFA(testcases[7]['states'], testcases[7]['alphabet'], testcases[7]['st
 testfa9 = DFA(testcases[8]['states'], testcases[8]['alphabet'], testcases[8]['start_state'], testcases[8]['accepting_states'], testcases[8]['transition_function'])
 testfa10 = DFA(testcases[9]['states'], testcases[9]['alphabet'], testcases[9]['start_state'], testcases[9]['accepting_states'], testcases[9]['transition_function'])
 testfa11 = DFA(testcases[10]['states'], testcases[10]['alphabet'], testcases[10]['start_state'], testcases[10]['accepting_states'], testcases[10]['transition_function'])
+testfa12 = DFA(testcases[11]['states'], testcases[11]['alphabet'], testcases[11]['start_state'], testcases[11]['accepting_states'], testcases[11]['transition_function'])
+testfa13 = DFA(testcases[12]['states'], testcases[12]['alphabet'], testcases[12]['start_state'], testcases[12]['accepting_states'], testcases[12]['transition_function'])
+testfa14 = DFA(testcases[13]['states'], testcases[13]['alphabet'], testcases[13]['start_state'], testcases[13]['accepting_states'], testcases[13]['transition_function'])
 
