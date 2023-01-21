@@ -5,6 +5,16 @@ class DFA:
         self.start_state = start_state
         self.accepting_states = accepting_states
         self.transition_function = transition_function
+
+    def __eq__(self, second_dfa):
+        if isinstance(second_dfa, DFA):
+            result = True
+            for string_length in range(len(self.state_set)):
+                for generated_string in self.string_generator(string_length):
+                    result = not (self.is_accepted(generated_string) ^ second_dfa.is_accepted(generated_string))
+            return result
+        else:
+            return False
     
     def is_accepted(self, input_string):
         current_state = self.start_state
@@ -71,7 +81,7 @@ class DFA:
         else:
             return elements[-1]
     
-    def ــstring_generator(self, length):
+    def string_generator(self, length):
         if length == 0:
             return ['']
         else:
@@ -174,6 +184,9 @@ class DFA:
                 difference_transition_function.pop(state)
         
         return DFA(difference_state_set, difference_alphabet, difference_start_state, difference_accepting_states, difference_transition_function)
+
+    def is_subset_of(self, second_Dfa):
+        return self.difference(second_Dfa).is_empty()
     
     def __q_into_q(self, second_dfa):
         q_into_q_state_set = []
