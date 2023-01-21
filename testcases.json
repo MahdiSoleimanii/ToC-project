@@ -151,5 +151,47 @@
             "q2": {"a": "q1", "b": "q0"},
             "q3": {"a": "q3", "b": "q3"}
         }
+    },
+    {
+        "type": "dfa",
+        "name": "not containing aa",
+        "states": ["q0", "q1", "q2"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q0", "q1"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q0"},
+            "q1": {"a": "q2", "b": "q0"},
+            "q2": {"a": "q2", "b": "q2"}
+        }
+    },
+    {
+        "type": "dfa",
+        "name": "ending in ab",
+        "states": ["q0", "q1", "q2"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q2"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q0"},
+            "q1": {"a": "q1", "b": "q2"},
+            "q2": {"a": "q1", "b": "q0"}
+        }
+    },
+    {
+        "type": "dfa",
+        "name": "intersection of two previous machines, ending in ab not containing aa",
+        "states": ["q0", "q1", "q2", "q3", "q4", "q5"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q1"],
+        "transition_function": {
+            "q0": {"a": "q2", "b": "q0"},
+            "q1": {"a": "q2", "b": "q0"},
+            "q2": {"a": "q4", "b": "q1"},
+            "q3": {"a": "q4", "b": "q3"},
+            "q4": {"a": "q4", "b": "q5"},
+            "q5": {"a": "q4", "b": "q3"}
+        }
     }
 ]
