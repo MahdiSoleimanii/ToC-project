@@ -41,7 +41,7 @@ class DFA:
                     long_strings = self.string_generator(string_length)
         return not long_strings == []
 
-    def number_of_elements(self):
+    def num_of_elements(self):
         if not self.is_infinite():
             elements = []
             for string_length in range(len(self.state_set)):
@@ -52,7 +52,7 @@ class DFA:
         else:
             return 'Infinite Language'
         
-    def shortest_string(self):
+    def shortest_str_len(self):
         elements = []
         for string_length in range(len(self.state_set)):
             for generated_string in self.string_generator(string_length):
@@ -63,7 +63,7 @@ class DFA:
         else:
             return len(elements[0])
     
-    def longest_string(self):
+    def longest_str_len(self):
         elements = []
         for string_length in range(len(self.state_set) + 1):
             for generated_string in self.string_generator(string_length):
@@ -77,7 +77,7 @@ class DFA:
         else:
             return len(elements[-1])
     
-    def string_generator(self, length):
+    def str_generator(self, length):
         if length == 0:
             return ['']
         else:
