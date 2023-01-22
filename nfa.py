@@ -6,5 +6,5 @@ class NFA:
         self.accepting_states = accepting_states
         self.transition_function = transition_function
 
-    def del_lambda_tranistion(self):
+    def del_lambda_transition(self):
         pass
