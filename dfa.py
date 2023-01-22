@@ -60,10 +60,8 @@ class DFA:
                     elements.append(generated_string)
         if elements == []:
             return 'Empty Language'
-        elif elements[0] == '':
-            return 'The Empty String'
         else:
-            return elements[0]
+            return len(elements[0])
     
     def longest_string(self):
         elements = []
@@ -76,10 +74,8 @@ class DFA:
             return 'Empty Language'
         elif len(elements[-1]) == len(self.state_set):
             return 'Infinite Language'
-        elif elements[-1] == '':
-            return 'The Empty String'
         else:
-            return elements[-1]
+            return len(elements[-1])
     
     def string_generator(self, length):
         if length == 0:
