@@ -183,6 +183,9 @@ class DFA:
 
     def is_subset_of(self, second_Dfa):
         return self.difference(second_Dfa).is_empty()
+
+    def is_disjoint(self, second_dfa):
+        return self.intersection(second_dfa).is_empty()
     
     def __q_into_q(self, second_dfa):
         q_into_q_state_set = []
