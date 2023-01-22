@@ -10,7 +10,7 @@ class DFA:
         if isinstance(second_dfa, DFA):
             result = True
             for string_length in range(len(self.state_set)):
-                for generated_string in self.string_generator(string_length):
+                for generated_string in self.str_generator(string_length):
                     result = not (self.is_accepted(generated_string) ^ second_dfa.is_accepted(generated_string))
             return result
         else:
@@ -28,7 +28,7 @@ class DFA:
         else:
             short_strings = []
             for string_length in range(1, len(self.state_set)):
-                for generated_string in self.string_generator(string_length):
+                for generated_string in self.str_generator(string_length):
                     if self.is_accepted(generated_string):
                         short_strings.append(generated_string)
             return short_strings == []
@@ -36,16 +36,16 @@ class DFA:
     def is_infinite(self):
         long_strings = []
         for string_length in range(len(self.state_set), 2 * len(self.state_set)):
-            for generated_string in self.string_generator(string_length):
+            for generated_string in self.str_generator(string_length):
                 if self.is_accepted(generated_string):
-                    long_strings = self.string_generator(string_length)
+                    long_strings = self.str_generator(string_length)
         return not long_strings == []
 
     def num_of_elements(self):
         if not self.is_infinite():
             elements = []
             for string_length in range(len(self.state_set)):
-                for generated_string in self.string_generator(string_length):
+                for generated_string in self.str_generator(string_length):
                     if self.is_accepted(generated_string):
                         elements.append(generated_string)
             return len(elements)
@@ -55,7 +55,7 @@ class DFA:
     def shortest_str_len(self):
         elements = []
         for string_length in range(len(self.state_set)):
-            for generated_string in self.string_generator(string_length):
+            for generated_string in self.str_generator(string_length):
                 if self.is_accepted(generated_string):
                     elements.append(generated_string)
         if elements == []:
@@ -66,7 +66,7 @@ class DFA:
     def longest_str_len(self):
         elements = []
         for string_length in range(len(self.state_set) + 1):
-            for generated_string in self.string_generator(string_length):
+            for generated_string in self.str_generator(string_length):
                 if self.is_accepted(generated_string):
                     elements.append(generated_string)
 
@@ -82,7 +82,7 @@ class DFA:
             return ['']
         else:
             strings = []
-            for string in self.string_generator(length - 1):
+            for string in self.str_generator(length - 1):
                 for char in self.alphabet:
                     strings.append(string + char)
             return strings
