@@ -116,15 +116,8 @@ class DFA:
             union_transition_function[state] = {}
             for char in union_alphabet:
                 union_transition_function[state][char] = (self.transition_function[state[0]][char], second_dfa.transition_function[state[1]][char])
-
-        for state in union_state_set:
-            if not DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function).is_reachable(state):
-                union_state_set.remove(state)
-                if state in union_accepting_states:
-                    union_accepting_states.remove(state)
-                union_transition_function.pop(state)
         
-        return DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function)
+        return DFA(union_state_set, union_alphabet, union_start_state, union_accepting_states, union_transition_function).del_unreachable()
 
     def intersection(self, second_dfa):
         intersection_state_set = self.__q_into_q(second_dfa)
@@ -143,15 +136,8 @@ class DFA:
             intersection_transition_function[state] = {}
             for char in intersection_alphabet:
                 intersection_transition_function[state][char] = (self.transition_function[state[0]][char], second_dfa.transition_function[state[1]][char])
-
-        for state in intersection_state_set:
-            if not DFA(intersection_state_set, intersection_alphabet, intersection_start_state, intersection_accepting_states, intersection_transition_function).is_reachable(state):
-                intersection_state_set.remove(state)
-                if state in intersection_accepting_states:
-                    intersection_accepting_states.remove(state)
-                intersection_transition_function.pop(state)
         
-        return DFA(intersection_state_set, intersection_alphabet, intersection_start_state, intersection_accepting_states, intersection_transition_function)
+        return DFA(intersection_state_set, intersection_alphabet, intersection_start_state, intersection_accepting_states, intersection_transition_function).del_unreachable()
     
     def difference(self, second_dfa):
         difference_state_set = self.__q_into_q(second_dfa)
@@ -171,15 +157,8 @@ class DFA:
             difference_transition_function[state] = {}
             for char in difference_alphabet:
                 difference_transition_function[state][char] = (self.transition_function[state[0]][char], second_dfa.transition_function[state[1]][char])
-
-        for state in difference_state_set:
-            if not DFA(difference_state_set, difference_alphabet, difference_start_state, difference_accepting_states, difference_transition_function).is_reachable(state):
-                difference_state_set.remove(state)
-                if state in difference_accepting_states:
-                    difference_accepting_states.remove(state)
-                difference_transition_function.pop(state)
         
-        return DFA(difference_state_set, difference_alphabet, difference_start_state, difference_accepting_states, difference_transition_function)
+        return DFA(difference_state_set, difference_alphabet, difference_start_state, difference_accepting_states, difference_transition_function).del_unreachable()
 
     def is_subset_of(self, second_Dfa):
         return self.difference(second_Dfa).is_empty()
@@ -195,11 +174,20 @@ class DFA:
         
         return q_into_q_state_set
         
-    def is_reachable(self, dest_state):
+    def __is_reachable(self, dest_state):
         reachable_states = [self.start_state]
         for state in reachable_states:
             for char in self.alphabet:
                 if self.transition_function[state][char] not in reachable_states:
                     reachable_states.append(self.transition_function[state][char])
         return dest_state in reachable_states
+    
+    def del_unreachable(self):
+        for state in self.state_set:
+            if not self.__is_reachable(state):
+                self.state_set.remove(state)
+                if state in self.accepting_states:
+                    self.accepting_states.remove(state)
+                self.transition_function.pop(state)
+        return self
                         
