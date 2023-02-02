@@ -175,11 +175,11 @@ class DFA:
         return q_into_q_state_set
         
     def __reachable_via(self, dest_state):
-        reachable_states = {self.start_state: {''}}
+        reachable_states = [self.start_state]
         for state in reachable_states:
             for char in self.alphabet:
                 if self.transition_function[state][char] not in reachable_states:
-                    reachable_states[self.transition_function[state][char]] == reachable_states[state] + char
+                    reachable_states.append(self.transition_function[state][char])
         return dest_state in reachable_states
     
     def del_unreachable(self):
