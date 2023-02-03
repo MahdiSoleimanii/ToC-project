@@ -1,5 +1,6 @@
 [
     {
+        "index": 1,
         "type": "dfa",
         "name": "ending in b and not containing aa",
         "states": ["q0", "q1", "q2", "q3"],
@@ -14,6 +15,7 @@
         }
     },
     {
+        "index": 2,
         "type": "dfa",
         "name": "ending in aa",
         "states": ["q0", "q1", "q2"],
@@ -27,6 +29,7 @@
         }
     },
     {
+        "index": 3,
         "type": "dfa",
         "name": "sigma star",
         "states": ["q0"],
@@ -38,6 +41,7 @@
         }
     },
     {
+        "index": 4,
         "type": "dfa",
         "name": "binary representation of integers divisible by 3",
         "states": ["q0", "q1", "q2", "q3", "q4", "q5"],
@@ -54,6 +58,7 @@
         }
     },
     {
+        "index": 5,
         "type": "dfa",
         "name": "manually created machine with empty language",
         "states": ["q0", "q1", "q2", "q3"],
@@ -68,6 +73,7 @@
         }
     },
     {
+        "index": 6,
         "type": "dfa",
         "name": "accepting only aa and aaa",
         "states": ["q0", "q1", "q2", "q3", "q4"],
@@ -83,6 +89,7 @@
         }
     },
     {
+        "index": 7,
         "type": "dfa",
         "name": "manually created machine where shortest string is of length 3 (one less than number of states)",
         "states": ["q0", "q1", "q2", "q3"],
@@ -97,6 +104,7 @@
         }
     },
     {
+        "index": 8,
         "type": "dfa",
         "name": "aa is not a substring of x",
         "states": ["q0", "q1", "q2"],
@@ -110,6 +118,7 @@
         }
     },
     {
+        "index": 9,
         "type": "dfa",
         "name": "x ends with ab",
         "states": ["q0", "q1", "q2"],
@@ -123,6 +132,7 @@
         }
     },
     {
+        "index": 10,
         "type": "dfa",
         "name": "union of two previous machines with removing unreachable states",
         "states": ["q0", "q1", "q2", "q3", "q4", "q5"],
@@ -139,6 +149,7 @@
         }
     },
     {
+        "index": 11,
         "type": "dfa",
         "name": "intersection of two previous machines with removing unreachable states",
         "states": ["q0", "q1", "q2", "q3"],
@@ -153,6 +164,7 @@
         }
     },
     {
+        "index": 12,
         "type": "dfa",
         "name": "not containing aa",
         "states": ["q0", "q1", "q2"],
@@ -166,6 +178,7 @@
         }
     },
     {
+        "index": 13,
         "type": "dfa",
         "name": "ending in ab",
         "states": ["q0", "q1", "q2"],
@@ -179,6 +192,7 @@
         }
     },
     {
+        "index": 14,
         "type": "dfa",
         "name": "intersection of two previous machines, ending in ab not containing aa",
         "states": ["q0", "q1", "q2", "q3", "q4", "q5"],
@@ -192,6 +206,27 @@
             "q3": {"a": "q4", "b": "q3"},
             "q4": {"a": "q4", "b": "q5"},
             "q5": {"a": "q4", "b": "q3"}
+        }
+    },
+    {
+        "index": 15,
+        "type": "dfa",
+        "name": "some dfa used for minimaztion test",
+        "states": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+        "alphabet": ["a", "b"],
+        "start_state": "0",
+        "accepting_states": ["3", "4", "8", "9"],
+        "transition_function": {
+            "0": {"a": "1", "b": "9"},
+            "1": {"a": "8", "b": "2"},
+            "2": {"a": "3", "b": "2"},
+            "3": {"a": "2", "b": "4"},
+            "4": {"a": "5", "b": "8"},
+            "5": {"a": "4", "b": "5"},
+            "6": {"a": "7", "b": "5"},
+            "7": {"a": "6", "b": "5"},
+            "8": {"a": "1", "b": "3"},
+            "9": {"a": "7", "b": "8"}
         }
     }
 ]
