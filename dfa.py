@@ -190,3 +190,55 @@ class DFA:
                     self.accepting_states.remove(state)
                 self.transition_function.pop(state)
         return self
+    
+    def minimize(self):
+        removed_unreachables = self.del_unreachable()
+
+    def find_mixables(self):
+        indexes = self.__num_to_state()
+        states = self.__state_to_num()
+        check_states = []
+        for i in range(len(self.state_set)):
+            check_states.append([True] * i)
+        
+        for i in range(1, len(check_states)):
+            for j in range(len(check_states[i])):
+                if check_states[i][j]:
+                    bool1 = indexes[i] in self.accepting_states
+                    bool2 = indexes[j] in self.accepting_states
+                    if bool1 != bool2:
+                        check_states[i][j] = False
+        
+        check_states_prev = []
+        while check_states_prev != check_states:
+            check_states_prev = check_states.copy()
+            for i in range(1, len(check_states)):
+                for j in range(len(check_states[i])):
+                    if check_states[i][j]:
+                        for char in self.alphabet:
+                            state1 = self.transition_function[indexes[i]][char]
+                            state2 = self.transition_function[indexes[j]][char]
+                            big_index = max(states[state1], states[state2])
+                            small_index = min(states[state1], states[state2])
+                            print(big_index, small_index)
+                            if state1 != state2:
+                                if not check_states[big_index][small_index]:
+                                    check_states[i][j] = False
+                                    break      
+        return check_states
+    
+    def __num_to_state(self):
+        state_indexes = {}
+        index = 0
+        for state in self.state_set:
+            state_indexes[index] = state
+            index += 1
+        return state_indexes
+    
+    def __state_to_num(self):
+        state_indexes = {}
+        index = 0
+        for state in self.state_set:
+            state_indexes[state] = index
+            index += 1
+        return state_indexes
