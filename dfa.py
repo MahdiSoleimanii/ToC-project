@@ -11,7 +11,7 @@ class DFA:
             result = True
             for string_length in range(len(self.state_set)):
                 for generated_string in self.str_generator(string_length):
-                    result = (self.is_accepted(generated_string) == second_dfa.is_accepted(generated_string))
+                    result = result and (self.is_accepted(generated_string) == second_dfa.is_accepted(generated_string))
             return result
         else:
             return False
