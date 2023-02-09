@@ -250,6 +250,15 @@ class DFA:
                 minimized_state_set.append((state))
 
         return minimized_state_set
+
+    def minimized_accepting_states(self):
+        minimized_accepting_states = []
+        for state in self.minimized_states():
+            for accept_state in self.accepting_states:
+                if accept_state in state:
+                    minimized_accepting_states.append(state)
+                    break
+        return minimized_accepting_states
                     
     
     def __num_to_state(self):
