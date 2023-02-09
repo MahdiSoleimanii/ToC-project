@@ -251,6 +251,14 @@ class DFA:
 
         return minimized_state_set
 
+    def minimized_start_state(self):
+        new_start_state = self.start_state
+        for mixed_state in self.minimized_states():
+            if new_start_state in mixed_state:
+                new_start_state = mixed_state
+                break
+        return new_start_state
+
     def minimized_accepting_states(self):
         minimized_accepting_states = []
         for state in self.minimized_states():
@@ -259,8 +267,20 @@ class DFA:
                     minimized_accepting_states.append(state)
                     break
         return minimized_accepting_states
-                    
     
+    def minimized_transition_function(self):
+        minimized_transition_function = {}
+        for mixed_state in self.minimized_states():
+            minimized_transition_function[mixed_state] = {}
+        
+        for state in self.state_set:
+            for mixed_state in self.minimized_states():
+                for char in self.alphabet:
+                    if state in mixed_state:
+                        minimized_transition_function[mixed_state][char] = self.__state_to_mixed_state()[self.transition_function[state][char]]
+
+        return minimized_transition_function
+                    
     def __num_to_state(self):
         state_indexes = {}
         index = 0
@@ -276,3 +296,11 @@ class DFA:
             state_indexes[state] = index
             index += 1
         return state_indexes
+    
+    def __state_to_mixed_state(self):
+        states_dict = {}
+        for state in self.state_set:
+            for mixed_state in self.minimized_states():
+                if state in mixed_state:
+                    states_dict[state] = mixed_state
+        return states_dict
