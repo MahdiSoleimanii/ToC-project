@@ -228,5 +228,21 @@
             "q8": {"a": "q1", "b": "q3"},
             "q9": {"a": "q7", "b": "q8"}
         }
+    },
+    {
+        "index": 16,
+        "type": "dfa",
+        "name": "minimized version of the previous testcase as described in the textbook",
+        "states": ["q0", "q1", "q2", "q3", "q4"],
+        "alphabet": ["a", "b"],
+        "start_state": "q0",
+        "accepting_states": ["q2", "q3"],
+        "transition_function": {
+            "q0": {"a": "q1", "b": "q3"},
+            "q1": {"a": "q2", "b": "q1"},
+            "q2": {"a": "q1", "b": "q2"},
+            "q3": {"a": "q4", "b": "q2"},
+            "q4": {"a": "q4", "b": "q1"}
+        }
     }
 ]
