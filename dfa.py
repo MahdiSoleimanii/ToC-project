@@ -193,6 +193,7 @@ class DFA:
     
     def minimize(self):
         removed_unreachables = self.del_unreachable()
+        return DFA(removed_unreachables.minimized_states(), removed_unreachables.alphabet, removed_unreachables.minimized_start_state(), removed_unreachables.minimized_accepting_states(), removed_unreachables.minimized_transition_function())
 
     def __find_mixables(self):
         indexes = self.__num_to_state()
