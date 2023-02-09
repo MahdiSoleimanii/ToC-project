@@ -194,7 +194,7 @@ class DFA:
     def minimize(self):
         removed_unreachables = self.del_unreachable()
 
-    def find_mixables(self):
+    def __find_mixables(self):
         indexes = self.__num_to_state()
         states = self.__state_to_num()
         check_states = []
@@ -220,12 +220,37 @@ class DFA:
                             state2 = self.transition_function[indexes[j]][char]
                             big_index = max(states[state1], states[state2])
                             small_index = min(states[state1], states[state2])
-                            print(big_index, small_index)
                             if state1 != state2:
                                 if not check_states[big_index][small_index]:
                                     check_states[i][j] = False
-                                    break      
+                                    break
         return check_states
+
+    def minimized_states(self):
+        minimized_state_set = []
+        states = set()
+        for i in range(1, len(self.__find_mixables())):
+            for j in range(len(self.__find_mixables()[i])):
+                if self.__find_mixables()[i][j]:
+                    states.add(self.__num_to_state()[i])
+                    states.add(self.__num_to_state()[j])
+            minimized_state_set.append(states)
+            states = set()
+        
+        for i in range(len(minimized_state_set) - 1):
+            for j in range(i + 1, len(minimized_state_set)):
+                if minimized_state_set[i] & minimized_state_set[j]:
+                    minimized_state_set[i] = minimized_state_set[i] | minimized_state_set[j]
+                    minimized_state_set[j] = set()
+
+        minimized_state_set = [tuple(sorted(list(set))) for set in minimized_state_set if set]
+
+        for state in self.state_set:
+            if state not in str(minimized_state_set):
+                minimized_state_set.append((state))
+
+        return minimized_state_set
+                    
     
     def __num_to_state(self):
         state_indexes = {}
